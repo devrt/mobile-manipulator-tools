@@ -1,0 +1,9 @@
+<library path="lib/libloopback_joint_state_controller">
+  <class name="loopback_robot_hardware/JointStateController"
+         type="loopback_robot_hardware::JointStateController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The joint state controller publishes the current joint state as a sensor_msgs/JointState message. The joint state controller expects a JointStateInterface type of hardware interface.
+    </description>
+  </class>
+</library>

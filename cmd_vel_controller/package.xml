@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cmd_vel_controller</name>
+  <version>0.0.1</version>
+  <description>cmd_vel_controller</description>
+
+  <maintainer email="yosuke.matsusaka@gmail.com">Yosuke Matsusaka</maintainer>
+
+  <license>BSD</license>
+
+  <author>Yosuke Matsusaka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo_dev</build_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>control_toolbox</depend>
+  <depend>controller_manager</depend>
+  <depend>pluginlib</depend>
+  <depend>hardware_interface</depend>
+  <depend>transmission_interface</depend>
+  <depend>joint_limits_interface</depend>
+  <depend>controller_interface</depend>
+  <depend>urdf</depend>
+  <depend>angles</depend>
+  <depend>gazebo_ros_control</depend>
+
+  <export>
+    <controller_interface plugin="${prefix}/cmd_vel_plugin.xml"/>
+  </export>
+</package>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>add_odom_virtual_joints</name>
+  <version>0.0.1</version>
+  <description>Small utility to enable moveit to plan mobile manipulator</description>
+
+  <maintainer email="yosuke.matsusaka@gmail.com">Yosuke Matsusaka</maintainer>
+
+  <license>BSD</license>
+
+  <author email="yosuke.matsusaka@gmail.com">Yosuke Matsusaka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

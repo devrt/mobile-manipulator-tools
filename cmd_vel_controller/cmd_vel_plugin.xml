@@ -1,0 +1,9 @@
+<library path="lib/libcmd_vel_controller">
+  <class name="cmd_vel_controller/CmdVelController"
+         type="cmd_vel_controller::CmdVelController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The cmd controller subcribes the cmd_vel topic expects three VelocityJointInterfaces of odom_x, odom_y, odom_r.
+    </description>
+  </class>
+</library>

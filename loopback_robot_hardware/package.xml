@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>loopback_robot_hardware</name>
+  <version>0.0.1</version>
+  <description>loopback_robot_hardware</description>
+
+  <maintainer email="yosuke.matsusaka@gmail.com">Yosuke Matsusaka</maintainer>
+
+  <license>BSD</license>
+
+  <author>Yosuke Matsusaka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo_dev</build_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>control_toolbox</depend>
+  <depend>controller_manager</depend>
+  <depend>pluginlib</depend>
+  <depend>hardware_interface</depend>
+  <depend>transmission_interface</depend>
+  <depend>joint_limits_interface</depend>
+  <depend>controller_interface</depend>
+  <depend>urdf</depend>
+  <depend>angles</depend>
+  <depend>gazebo_ros_control</depend>
+
+  <export>
+    <gazebo_ros_control plugin="${prefix}/robot_hw_sim_plugins.xml"/>
+    <controller_interface plugin="${prefix}/joint_state_plugin.xml"/>
+  </export>
+</package>
