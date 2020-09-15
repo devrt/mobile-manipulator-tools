@@ -38,6 +38,8 @@
 
 import rospy
 from threading import Lock
+from control_msgs.msg import FollowJointTrajectoryActionResult
+from actionlib_msgs.msg import GoalStatus
 from geometry_msgs.msg import Twist
 from controller_manager_msgs.srv import SwitchController, SwitchControllerRequest
 
@@ -45,7 +47,8 @@ class ControllerSwitcher:
     last_cmd_time = 0
     lock = None
     pub = None
-    sub = None
+    sub_cmd_vel = None
+    sub_trajectory_status = None
     switch_controller = None
     CMDVEL_MODE = 1
     TRAJ_MODE = 2
@@ -82,6 +85,17 @@ class ControllerSwitcher:
         self.switch_to_cmdvel()
         self.pub.publish(data)
 
+    def omni_trajectory_status_callback(self, data):
+        if data.status.status == GoalStatus.ABORTED:
+            rospy.loginfo("%s aborted", self.traj_controller_name)
+            self.last_cmd_time = rospy.get_time()
+            self.switch_to_cmdvel()
+            hold_data = Twist() # data with zero velocity (=hold)
+            for i in range(0, 10):
+                self.last_cmd_time = rospy.get_time()
+                self.pub.publish(hold_data)
+                rospy.sleep(0.1)
+
     def start(self):
         rospy.init_node('controller_switcher', anonymous=True)
         
@@ -100,7 +114,8 @@ class ControllerSwitcher:
 
         self.last_cmd_time = rospy.get_time()
         self.pub = rospy.Publisher(self.publish_topic_name, Twist, queue_size=10)
-        self.sub = rospy.Subscriber(self.monitor_topic_name, Twist, self.cmd_vel_callback)
+        self.sub_cmd_vel = rospy.Subscriber(self.monitor_topic_name, Twist, self.cmd_vel_callback)
+        self.sub_trajectory_status = rospy.Subscriber(self.traj_controller_name + '/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, self.omni_trajectory_status_callback)
         r = rospy.Rate(10)
         while not rospy.is_shutdown():
             if rospy.get_time() - self.last_cmd_time > self.cmd_vel_timeout:
