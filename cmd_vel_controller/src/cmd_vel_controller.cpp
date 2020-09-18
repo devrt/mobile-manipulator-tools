@@ -83,10 +83,9 @@ namespace cmd_vel_controller
             curr_cmd.ang = 0.0;
         }
 
-        double r = - odom_r_.getPosition();
-        double diff_r = - curr_cmd.ang * dt;
-        double cosr = cos(r + 0.5 * diff_r); // use Runge-Kutta 2nd
-        double sinr = sin(r + 0.5 * diff_r);
+        double ang = odom_r_.getPosition() + 0.5 * curr_cmd.ang * dt; // use Runge-Kutta 2nd
+        double cosr = cos(ang);
+        double sinr = sin(ang);
         double abs_dot_x = curr_cmd.lin_x * cosr - curr_cmd.lin_y * sinr;
         double abs_dot_y = curr_cmd.lin_x * sinr + curr_cmd.lin_y * cosr;
 
