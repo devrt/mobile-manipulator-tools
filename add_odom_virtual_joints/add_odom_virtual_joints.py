@@ -103,4 +103,8 @@ if __name__ == '__main__':
     #root.append(transmission('odom_x'))
     #root.append(transmission('odom_y'))
     #root.append(transmission('odom_r'))
-    print(ET.tostring(root))
+    if sys.version_info.major == 3:
+        print('<?xml version="1.0" ?>')
+        print(ET.tostring(root, encoding='unicode'))
+    else:
+        print(ET.tostring(root, encoding='utf-8'))
