@@ -59,7 +59,7 @@ namespace loopback_robot_hardware
         {
             loopback_velocity_interfaces_.push_back("odom_x");
             loopback_velocity_interfaces_.push_back("odom_y");
-            loopback_velocity_interfaces_.push_back("odom_r");
+            loopback_velocity_interfaces_.push_back("odom_t");
         }
 
         gazebo_ros_control::DefaultRobotHWSim::initSim(robot_namespace, model_nh, parent_model, urdf_model, transmissions);

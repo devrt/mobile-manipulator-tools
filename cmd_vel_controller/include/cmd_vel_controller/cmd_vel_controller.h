@@ -73,7 +73,7 @@ namespace cmd_vel_controller
         // Joint handles:
         hardware_interface::JointHandle odom_x_;
         hardware_interface::JointHandle odom_y_;
-        hardware_interface::JointHandle odom_r_;
+        hardware_interface::JointHandle odom_t_;
 
         // Velocity command subscribing:
         struct Command

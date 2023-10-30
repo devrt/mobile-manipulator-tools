@@ -40,10 +40,10 @@ import sys
 import subprocess
 import xml.etree.ElementTree as ET
 
-def odom_r_joint():
-    j = ET.Element('joint', {'name': 'odom_r', 'type': 'continuous'})
+def odom_t_joint():
+    j = ET.Element('joint', {'name': 'odom_t', 'type': 'continuous'})
     j.append(ET.Element('axis', {'xyz': '0 0 1'}))
-    j.append(ET.Element('parent', {'link': 'odom_xr_link'}))
+    j.append(ET.Element('parent', {'link': 'odom_xt_link'}))
     j.append(ET.Element('child', {'link': 'base_footprint'}))
     j.append(ET.Element('limit', {'effort': '0.1', 'velocity': '1'}))
     return (j)
@@ -52,7 +52,7 @@ def odom_x_joint():
     j = ET.Element('joint', {'name': 'odom_x', 'type': 'prismatic'})
     j.append(ET.Element('axis', {'xyz': '1 0 0'}))
     j.append(ET.Element('parent', {'link': 'odom_yx_link'}))
-    j.append(ET.Element('child', {'link': 'odom_xr_link'}))
+    j.append(ET.Element('child', {'link': 'odom_xt_link'}))
     j.append(ET.Element('limit', {'lower': '-10', 'upper': '10', 'effort': '0.1', 'velocity': '0.2'}))
     return(j)
     
@@ -95,14 +95,14 @@ if __name__ == '__main__':
     root = ET.fromstring(subprocess.check_output(sys.argv[1:]))
 
     root.append(link('odom'))
-    root.append(link('odom_xr_link'))
+    root.append(link('odom_xt_link'))
     root.append(link('odom_yx_link'))
-    root.append(odom_r_joint())
+    root.append(odom_t_joint())
     root.append(odom_x_joint())
     root.append(odom_y_joint())
     #root.append(transmission('odom_x'))
     #root.append(transmission('odom_y'))
-    #root.append(transmission('odom_r'))
+    #root.append(transmission('odom_t'))
     if sys.version_info.major == 3:
         print('<?xml version="1.0" ?>')
         print(ET.tostring(root, encoding='unicode'))

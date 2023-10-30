@@ -61,7 +61,7 @@ namespace cmd_vel_controller
 
         odom_x_ = hw->getHandle("odom_x");
         odom_y_ = hw->getHandle("odom_y");
-        odom_r_ = hw->getHandle("odom_r");
+        odom_t_ = hw->getHandle("odom_t");
 
         // Subscribe to cmd_vel topic
         sub_command_ = controller_nh.subscribe("cmd_vel", 1, &CmdVelController::cmdVelCallback, this);
@@ -83,7 +83,7 @@ namespace cmd_vel_controller
             curr_cmd.ang = 0.0;
         }
 
-        double ang = odom_r_.getPosition() + 0.5 * curr_cmd.ang * dt; // use Runge-Kutta 2nd
+        double ang = odom_t_.getPosition() + 0.5 * curr_cmd.ang * dt; // use Runge-Kutta 2nd
         double cosr = cos(ang);
         double sinr = sin(ang);
         double abs_dot_x = curr_cmd.lin_x * cosr - curr_cmd.lin_y * sinr;
@@ -91,7 +91,7 @@ namespace cmd_vel_controller
 
         odom_x_.setCommand(abs_dot_x);
         odom_y_.setCommand(abs_dot_y);
-        odom_r_.setCommand(curr_cmd.ang);
+        odom_t_.setCommand(curr_cmd.ang);
     }
 
     void CmdVelController::starting(const ros::Time &time)
