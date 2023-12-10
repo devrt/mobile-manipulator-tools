@@ -57,7 +57,7 @@ class ControllerSwitcher:
     publish_topic_name = 'cmd_vel_controller/cmd_vel'
     cmd_vel_timeout = 0.5
     cmdvel_controller_name = 'cmd_vel_controller'
-    traj_controller_name = 'omni_trajectory_controller'
+    traj_controller_name = 'omni_base_controller'
 
     def __init__(self):
         self.lock = Lock()
