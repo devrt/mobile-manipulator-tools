@@ -64,14 +64,15 @@ def odom_y_joint():
     j.append(ET.Element('limit', {'lower': '-10', 'upper': '10', 'effort': '0.1', 'velocity': '0.2'}))
     return(j)
 
-def link(name):
+def link(name, add_inertia = True):
     l = ET.Element('link', {'name': name})
-    i = ET.Element('inertial') # inertial element is required to pass urdf to sdf conversion in gazebo
-    mass = 0.1
-    inertia = 2.0 * mass * 0.01 * 0.01 / 5.0 # assume as sphere
-    i.append(ET.Element('mass', {'value': str(mass)}))
-    i.append(ET.Element('inertia', {'ixx': str(inertia), 'ixy': '0', 'ixz': '0', 'iyy': str(inertia), 'iyz': '0', 'izz': str(inertia)}))
-    l.append(i)
+    if add_inertia:
+        i = ET.Element('inertial') # inertial element is required to pass urdf to sdf conversion in gazebo
+        mass = 0.1
+        inertia = 2.0 * mass * 0.01 * 0.01 / 5.0 # assume as sphere
+        i.append(ET.Element('mass', {'value': str(mass)}))
+        i.append(ET.Element('inertia', {'ixx': str(inertia), 'ixy': '0', 'ixz': '0', 'iyy': str(inertia), 'iyz': '0', 'izz': str(inertia)}))
+        l.append(i)
     return(l)
 
 def transmission(name):
@@ -94,7 +95,7 @@ def transmission(name):
 if __name__ == '__main__':
     root = ET.fromstring(subprocess.check_output(sys.argv[1:]))
 
-    root.append(link('odom'))
+    root.append(link('odom', False))
     root.append(link('odom_xt_link'))
     root.append(link('odom_yx_link'))
     root.append(odom_t_joint())
